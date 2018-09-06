@@ -65,7 +65,15 @@ public class DemoMain {
          */
         ProcessInstance processInstance = getProcessInstance(processEngine, processDefinition);
         loger.info("启动流程{}",processInstance.getProcessDefinitionKey());
-//        处理流程任务
+
+        /**
+         * 处理流程任务
+         * 1。通过引擎获取任务Service
+         * 2。通过任务service获取流程图上所有节点
+         * 3。处理
+         * 4。通过complete将节点结束
+         * 5。处理完一个任务节点后要将流程对象指向下一个节点
+         */
         processTask(processEngine, processInstance);
         loger.info("end ------------");
     }
