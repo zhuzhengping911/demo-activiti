@@ -9,23 +9,22 @@
         <property name="jdbcUsername" value="root"></property>
         <property name="jdbcPassword" value="123"></property>
         <property name="databaseSchemaUpdate" value="true"></property>
-        <!--<property name="commandInvoker" ref="commandInvoker"></property>-->
-        <!--<property name="eventListeners">-->
-            <!--<list>-->
-                <!--<bean class="com.zzp.activiti.demo.event.ProcessEventListener">-->
-
-                <!--</bean>-->
-            <!--</list>-->
-        <!--</property>-->
-        <property name="typedEventListeners">
-            <map>
-                <entry key="PROCESS_STARTED">
-                    <list>
-                        <bean class="com.zzp.activiti.demo.event.ProcessEventListener"></bean>
-                    </list>
-                </entry>
-            </map>
+        <property name="commandInvoker" ref="commandInvoker"></property>
+        <property name="eventListeners">
+            <list>
+                <!--<bean class="com.zzp.activiti.demo.event.ProcessEventListener"></bean>-->
+                <!--<bean class="com.zzp.activiti.demo.event.CustomEventListener"></bean>-->
+            </list>
         </property>
+        <!--<property name="typedEventListeners">-->
+            <!--<map>-->
+                <!--<entry key="PROCESS_STARTED">-->
+                    <!--<list>-->
+                        <!--<bean class="com.zzp.activiti.demo.event.ProcessEventListener"></bean>-->
+                    <!--</list>-->
+                <!--</entry>-->
+            <!--</map>-->
+        <!--</property>-->
     </bean>
     <bean id="commandInvoker" class="com.zzp.activiti.demo.interceptor.MDCCommandINvoker">
     </bean>

@@ -1,3 +1,6 @@
+import com.zzp.activiti.demo.event.CustomEventListener;
+import org.activiti.engine.delegate.event.ActivitiEventType;
+import org.activiti.engine.delegate.event.impl.ActivitiEventImpl;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
@@ -26,6 +29,9 @@ public class ConfigEventListenerTest {
         ProcessInstance processInstance = activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess");
         Task task =activitiRule.getTaskService().createTaskQuery().singleResult();
         activitiRule.getTaskService().complete(task.getId());
+
+        activitiRule.getRuntimeService().addEventListener(new CustomEventListener());
+        activitiRule.getRuntimeService().dispatchEvent(new ActivitiEventImpl(ActivitiEventType.CUSTOM));
 
     }
 }
