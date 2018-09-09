@@ -1,21 +1,22 @@
-<!-- Logback configuration. See http://logback.qos.ch/manual/index.html -->
-<configuration debug = "fales" scan="true" scanPeriod="30 seconds">
-    <property name="log.dir" value="target/logs" />
-    <property name="encoding" value="UTF-8" />
-    <property name="log.dir" value="target/logs" />
-    <property name="plain" value="%msg%/n" />
-    <property name="LOG_PATH" value="logs" />
-    <property name="std" value="%date{yyyy-MM-dd HH:mm:ss.SSS}\t[%thread][%-5level]%msg %X{user} %logger{10}.%M:%L%n" />
-    <property name="mdc" value="%date{yyyy-MM-dd HH:mm:ss.SSS}\t[%thread][%-5level]%msg %X{user} %logger{10}.%M:%L%n" />
-    <property name="normal" value="%date{yyyy-MM-dd HH:mm:ss.SSS}\t[%thread]\t%-5level\t%logger\t-\t%msg%n" />
-
-    <appender name="stdout" class="ch.qos.logback.core.rolling.RollingFileAppender">
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="5 seconds" debug="false">
+    <property name="LOG_FILE" value="/tmp/logs/logstash.log}"/>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>${mdc}</pattern>
-            <charset>${encoding}</charset>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
-
     </appender>
-
-    
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_FILE}</file>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{36} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- show activiti sql-->
+    <logger name="org.activiti.engine.impl.persistence.entity" level="INFO" />
+    <root level="info">
+        <!--<appender-ref ref="FILE" />-->
+        <appender-ref ref="STDOUT" />
+    </root>
 </configuration>
