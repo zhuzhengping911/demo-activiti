@@ -1,0 +1,20 @@
+<!-- Logback configuration. See http://logback.qos.ch/manual/index.html -->
+<configuration debug = "fales" scan="true" scanPeriod="30 seconds">
+    <property name="log.dir" value="target/logs" />
+    <property name="encoding" value="UTF-8" />
+    <property name="log.dir" value="target/logs" />
+    <property name="plain" value="%msg%/n" />
+    <property name="LOG_PATH" value="logs" />
+    <property name="std" value="%date{yyyy-MM-dd HH:mm:ss.SSS}\t[%thread][%-5level]%msg %X{user} %logger{10}.%M:%L%n" />
+    <property name="mdc" value="%date{yyyy-MM-dd HH:mm:ss.SSS}\t[%thread][%-5level]%msg %X{user} %logger{10}.%M:%L%n" />
+    <property name="normal" value="%date{yyyy-MM-dd HH:mm:ss.SSS}\t[%thread]\t%-5level\t%logger\t-\t%msg%n" />
+    <appender name="stdout" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${mdc}</pattern>
+            <charset>${encoding}</charset>
+        </encoder>
+
+    </appender>
+
+    
+</configuration>
