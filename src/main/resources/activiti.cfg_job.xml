@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
+        <property name="jdbcDriver" value="com.mysql.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/ActivitiTest?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"></property>
+        <property name="jdbcUsername" value="root"></property>
+        <property name="jdbcPassword" value="123"></property>
+        <property name="databaseSchemaUpdate" value="true"></property>
+        <!--<property name="commandInvoker" ref="commandInvoker"></property>-->
+        <property name="asyncExecutorActivate" value="true"></property>
+        <property name="asyncExecutor" ref="asyncExcutor"></property>
+        <property name="eventListeners">
+            <list>
+                <bean class="com.zzp.activiti.demo.event.JobEventListener"></bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="commandInvoker" class="com.zzp.activiti.demo.interceptor.MDCCommandINvoker">
+    </bean>
+    <bean name="asyncExcutor" class="org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor">
+        <property name="executorService" ref="executorService"></property>
+    </bean>
+    <bean id="executorService" class="org.springframework.scheduling.concurrent.ThreadPoolExecutorFactoryBean">
+        <property name="threadNamePrefix" value="activiti-job-"></property>
+        <property name="corePoolSize" value="5"></property>
+        <property name="maxPoolSize" value="20"></property>
+        <property name="queueCapacity" value="100"></property>
+        <property name="rejectedExecutionHandler">
+            <bean class="java.util.concurrent.ThreadPoolExecutor$AbortPolicy"></bean>
+        </property>
+    </bean>
+</beans>
