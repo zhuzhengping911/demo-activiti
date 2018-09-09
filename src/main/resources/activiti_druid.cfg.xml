@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
+        <!--<property name="jdbcDriver" value="com.mysql.jdbc.Driver"></property>-->
+        <!--<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/ActivitiTest?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"></property>-->
+        <!--<property name="jdbcUsername" value="root"></property>-->
+        <!--<property name="jdbcPassword" value="123"></property>-->
+        <!--
+            创建表的策略
+         -->
+        <property name="databaseSchemaUpdate" value="true"></property>
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/ActivitiTest?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="123"></property>
+        <property name="initialSize" value="1"></property>
+        <property name="maxActive" value="10"></property>
+        <property name="filters" value="stat,slf4j"></property>
+    </bean>
+</beans>
