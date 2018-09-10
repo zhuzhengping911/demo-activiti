@@ -1,6 +1,7 @@
 import com.google.common.collect.Maps;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.runtime.ProcessInstanceBuilder;
 import org.activiti.engine.test.ActivitiRule;
@@ -9,6 +10,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -88,5 +90,22 @@ public class TestRunTimeService {
         ProcessInstance processInstance1 = runtimeService.createProcessInstanceQuery()
                 .processInstanceId(processInstance.getId())
                 .singleResult();
+    }
+
+    @Test
+    @org.activiti.engine.test.Deployment(resources = "MyProcess.bpmn20.xml")
+    public void testExecutionQuery(){
+        RuntimeService runtimeService = activitiRule.getRuntimeService();
+        Map<String,Object> varibles = Maps.newHashMap();
+        varibles.put("key1","value1");
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("myProcess",varibles);
+        LOGGER.info("processInstance = {}",processInstance);
+
+        List<Execution> executions = runtimeService.createExecutionQuery()
+                .listPage(0, 100);
+        for (Execution execution:executions){
+            LOGGER.info("Execution = {}",execution);
+
+        }
     }
 }
