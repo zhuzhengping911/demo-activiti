@@ -3,6 +3,7 @@ import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.DeploymentBuilder;
 import org.activiti.engine.repository.DeploymentQuery;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.test.ActivitiRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -85,5 +86,21 @@ public class TestRepository {
         LOGGER.info("启动");
         activitiRule.getRuntimeService().startProcessInstanceById(processDefinition.getId());
         LOGGER.info("启动成功");
+    }
+
+    @Test
+    @org.activiti.engine.test.Deployment(resources = "MyProcess.bpmn20.xml")
+    public void testCandidateStarter(){
+        RepositoryService repositoryService = activitiRule.getRepositoryService();
+        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().singleResult();
+        LOGGER.info("processDefiniton.id={}",processDefinition.getId());
+        repositoryService.addCandidateStarterUser(processDefinition.getId(),"user");
+        repositoryService.addCandidateStarterGroup(processDefinition.getId(),"groupM");
+        List<IdentityLink> identityLinkList = repositoryService.getIdentityLinksForProcessDefinition(processDefinition.getId());
+        for (IdentityLink identityLink :identityLinkList){
+            LOGGER.info("identityLink = {}",identityLink);
+        }
+        repositoryService.deleteCandidateStarterGroup(processDefinition.getId(),"groupM");
+        repositoryService.deleteCandidateStarterUser(processDefinition.getId(),"user");
     }
 }
