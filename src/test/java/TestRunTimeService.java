@@ -126,4 +126,17 @@ public class TestRunTimeService {
 
         }
     }
+    @Test
+    @org.activiti.engine.test.Deployment(resources = "MyProcess_tragger.bpmn20.xml")
+    public void testTrigger(){
+        RuntimeService runtimeService = activitiRule.getRuntimeService();
+        ProcessInstance myProcess = runtimeService.startProcessInstanceByKey("myProcess");
+        Execution execution = runtimeService.createExecutionQuery()
+                .activityId("someTask")
+                .singleResult();
+        LOGGER.info("execution ={}",execution);
+        runtimeService.trigger(execution.getId());
+        LOGGER.info("execution ={}",execution);
+
+    }
 }
