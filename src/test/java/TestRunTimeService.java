@@ -139,4 +139,10 @@ public class TestRunTimeService {
         LOGGER.info("execution ={}",execution);
 
     }
+
+    @Test
+    @org.activiti.engine.test.Deployment(resources = "MyProcess_Signal.bpmn20.xml")
+    public void testSignalCatchingEvent(){
+
+    }
 }
