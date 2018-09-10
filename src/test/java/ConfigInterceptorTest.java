@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * MDC TEST
+ * nterceptorTest TEST
  * Created by zhuzhengping
  * on 2018/9/9.
  */
@@ -20,6 +20,9 @@ public class ConfigInterceptorTest {
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule("activiti.cfg_interceptor.xml");
 
+    /**
+     * 拦截器测试
+     */
     @Test
     @Deployment(resources = {"MyProcess.bpmn20.xml"})
     public void test(){

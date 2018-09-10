@@ -21,6 +21,10 @@ public class ConfigJobTest {
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule("activiti.cfg_job.xml");
 
+    /**
+     * 定时任务测试
+     * @throws InterruptedException
+     */
     @Test
     @Deployment(resources = {"MyProcess_job.bpmn20.xml"})
     public void test() throws InterruptedException {

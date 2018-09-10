@@ -23,6 +23,9 @@ public class ConfigSpringTest {
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule("activiti-context.xml");
 
+    /**
+     * spring集成测试
+     */
     @Test
     @Deployment(resources = {"MyProcess.bpmn20.xml"})
     public void test(){

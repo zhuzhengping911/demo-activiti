@@ -23,6 +23,9 @@ public class TestRepository {
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule();
 
+    /**
+     * 流程部署测试
+     */
     @Test
     public void testRepository(){
         RepositoryService repositoryService = activitiRule.getRepositoryService();
@@ -67,6 +70,9 @@ public class TestRepository {
         }
     }
 
+    /**
+     * 流程暂停与激活
+     */
     @Test
     @org.activiti.engine.test.Deployment(resources = "MyProcess.bpmn20.xml")
     public void testSuspend(){
@@ -88,6 +94,9 @@ public class TestRepository {
         LOGGER.info("启动成功");
     }
 
+    /**
+     * 用户与用户组测试
+     */
     @Test
     @org.activiti.engine.test.Deployment(resources = "MyProcess.bpmn20.xml")
     public void testCandidateStarter(){

@@ -25,6 +25,9 @@ public class TestRunTimeService {
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule();
 
+    /**
+     * 通过Key启动流程
+     */
     @Test
     @org.activiti.engine.test.Deployment(resources = "MyProcess.bpmn20.xml")
     public void testStartProcess(){
@@ -35,6 +38,9 @@ public class TestRunTimeService {
         LOGGER.info("processInstance = {}",processInstance);
     }
 
+    /**
+     * 通过ID启动流程
+     */
     @Test
     @org.activiti.engine.test.Deployment(resources = "MyProcess.bpmn20.xml")
     public void testStartProcessById(){
@@ -47,6 +53,9 @@ public class TestRunTimeService {
         LOGGER.info("processInstance = {}",processInstance);
     }
 
+    /**
+     * 实例构造器测试
+     */
     @Test
     @org.activiti.engine.test.Deployment(resources = "MyProcess.bpmn20.xml")
     public void testStartProcessInstanceBuilder(){
@@ -61,6 +70,9 @@ public class TestRunTimeService {
         LOGGER.info("processInstance = {}",processInstance);
     }
 
+    /**
+     * 变量测试
+     */
 
     @Test
     @org.activiti.engine.test.Deployment(resources = "MyProcess.bpmn20.xml")
@@ -78,6 +90,9 @@ public class TestRunTimeService {
         LOGGER.info("variables = {}",variables);
     }
 
+    /**
+     * 流程是咧测试
+     */
     @Test
     @org.activiti.engine.test.Deployment(resources = "MyProcess.bpmn20.xml")
     public void testProcessInstanceQuery(){
@@ -92,6 +107,9 @@ public class TestRunTimeService {
                 .singleResult();
     }
 
+    /**
+     * 执行流测试
+     */
     @Test
     @org.activiti.engine.test.Deployment(resources = "MyProcess.bpmn20.xml")
     public void testExecutionQuery(){

@@ -22,6 +22,9 @@ public class ConfigMDCTest {
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule("activiti.cfg_mdc.xml");
 
+    /**
+     * MDC日志测试
+     */
     @Test
     @Deployment(resources = {"MyProcess.bpmn20.xml"})
     public void test(){
