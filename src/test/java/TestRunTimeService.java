@@ -143,6 +143,12 @@ public class TestRunTimeService {
     @Test
     @org.activiti.engine.test.Deployment(resources = "MyProcess_Signal.bpmn20.xml")
     public void testSignalCatchingEvent(){
-
+        RuntimeService runtimeService = activitiRule.getRuntimeService();
+        ProcessInstance myProcess = runtimeService.startProcessInstanceByKey("myProcess");
+        Execution execution = runtimeService.createExecutionQuery().signalEventSubscriptionName("my-signal").singleResult();
+        LOGGER.info("execution= {}",execution);
+        runtimeService.signalEventReceived("my-signal");
+        Execution execution1= runtimeService.createExecutionQuery().signalEventSubscriptionName("my-signal").singleResult();
+        LOGGER.info("execution1= {}",execution1);
     }
 }
