@@ -126,6 +126,10 @@ public class TestRunTimeService {
 
         }
     }
+
+    /**
+     * 通过trigger出发后续节点
+     */
     @Test
     @org.activiti.engine.test.Deployment(resources = "MyProcess_tragger.bpmn20.xml")
     public void testTrigger(){
@@ -140,6 +144,9 @@ public class TestRunTimeService {
 
     }
 
+    /**
+     * 通过signal出发后续节点
+     */
     @Test
     @org.activiti.engine.test.Deployment(resources = "MyProcess_Signal.bpmn20.xml")
     public void testSignalCatchingEvent(){
@@ -153,7 +160,7 @@ public class TestRunTimeService {
     }
 
     /**
-     * messageReceived
+     * messageReceived出发后续节点
      */
     @Test
     @org.activiti.engine.test.Deployment(resources = "MyProcess_message.bpmn20.xml")
@@ -167,6 +174,9 @@ public class TestRunTimeService {
         LOGGER.info("execution1= {}",execution1);
     }
 
+    /**
+     * 通过message启动
+     */
     @Test
     @org.activiti.engine.test.Deployment(resources = "MyProcess_messageEvent.bpmn20.xml")
     public void testMessage(){
