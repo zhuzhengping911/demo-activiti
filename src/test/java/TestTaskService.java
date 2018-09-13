@@ -1,6 +1,8 @@
 import com.google.common.collect.Maps;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.util.CollectionUtil;
+import org.activiti.engine.task.Comment;
+import org.activiti.engine.task.Event;
 import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
@@ -26,6 +28,9 @@ public class TestTaskService {
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule();
 
+    /**
+     * task获取变量，描述
+     */
     @Test
     @Deployment(resources = "MyProcess-task.bpmn20.xml")
     public void tastTaskService(){
@@ -52,6 +57,9 @@ public class TestTaskService {
         LOGGER.info( "Task1 = {}",task1);
     }
 
+    /**
+     * task权限控制
+     */
     @Test
     @Deployment(resources = "MyProcess-task.bpmn20.xml")
     public void tastTaskServiceUser(){
@@ -84,5 +92,32 @@ public class TestTaskService {
         }
         listPage = taskService.createTaskQuery().taskAssignee("zzp").listPage(0, 100);
         LOGGER.info("是否存在{}", CollectionUtil.isNotEmpty(listPage));
+    }
+    /**
+     * task设置任务附件以及任务评论
+     */
+    @Test
+    @Deployment(resources = "MyProcess-task.bpmn20.xml")
+    public void tastTaskServiceAttachMent(){
+        Map<String,Object> varibles = Maps.newHashMap();
+        varibles.put("message","Its Test!!!!!");
+        activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess",varibles);
+        TaskService taskService = activitiRule.getTaskService();
+        Task task = taskService.createTaskQuery().singleResult();
+        taskService.addComment(task.getId(),task.getProcessDefinitionId(),"record note 1");
+        taskService.addComment(task.getId(),task.getProcessDefinitionId(),"record note 2");
+        List<Comment> taskComments = taskService.getTaskComments(task.getId());
+        for (Comment comment :taskComments){
+            LOGGER.info("comment = {}", comment);
+        }
+        List<Event> taskEvents = taskService.getTaskEvents(task.getId());
+        for (Event event :taskEvents){
+            LOGGER.info("event = {}", event);
+        }
+//        taskService.createAttachment("url",task.getId(),task.getProcessDefinitionId(),"name","desc","/url/test.png");
+//        List<Attachment> taskAttachments = taskService.getTaskAttachments(task.getId());
+//        for (Attachment attachment : taskAttachments){
+//            LOGGER.info("attachment = {}", ToStringBuilder.reflectionToString(attachment,ToStringStyle.SIMPLE_STYLE));
+//        }
     }
 }
