@@ -33,14 +33,14 @@ public class TestRepository {
         DeploymentBuilder deploymentBuilder = repositoryService.createDeployment();
 
         deploymentBuilder.name("测试部署资源1")
-                .addClasspathResource("second_approve.bpmn")
+                .addClasspathResource("second_approve.bpmn20.xml")
                 .addClasspathResource("MyProcess.bpmn20.xml");
         Deployment deployment = deploymentBuilder.deploy();
         LOGGER.info("deploy = {}",deployment);
 
         DeploymentBuilder deploymentBuilder1 = repositoryService.createDeployment();
         deploymentBuilder1.name("测试部署资源2")
-                .addClasspathResource("second_approve.bpmn")
+                .addClasspathResource("second_approve.bpmn20.xml")
                 .addClasspathResource("MyProcess.bpmn20.xml");
         deploymentBuilder1.deploy();
 

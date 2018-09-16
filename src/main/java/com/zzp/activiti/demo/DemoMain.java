@@ -141,7 +141,7 @@ public class DemoMain {
     private static ProcessDefinition getProcessDefinition(ProcessEngine processEngine) {
         RepositoryService repositoryService = processEngine.getRepositoryService();
         DeploymentBuilder deploymentBuilder = repositoryService.createDeployment();
-        deploymentBuilder.addClasspathResource("second_approve.bpmn");
+        deploymentBuilder.addClasspathResource("second_approve.bpmn20.xml");
         Deployment deployment = deploymentBuilder.deploy();
         String deployId = deployment.getId();
         return repositoryService.createProcessDefinitionQuery()
