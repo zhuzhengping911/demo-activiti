@@ -29,7 +29,7 @@ public class TestHistoryService {
      * task获取变量，描述
      */
     @Test
-    @Deployment(resources = "MyProcess-task.bpmn20.xml")
+    @Deployment(resources = "MyProcess.bpmn20.xml")
     public void tastHistoryService(){
         HistoryService historyService = activitiRule.getHistoryService();
         ProcessInstanceBuilder processInstanceBuilder = activitiRule.getRuntimeService().createProcessInstanceBuilder();
@@ -44,7 +44,7 @@ public class TestHistoryService {
                 .transientVariables(transientVariable).start();
         activitiRule.getRuntimeService().setVariable(myProcess.getId(),"key1","value_1");
 
-        Task task = activitiRule.getTaskService().createTaskQuery().processDefinitionId(myProcess.getId()).singleResult();
+        Task task = activitiRule.getTaskService().createTaskQuery().processInstanceId(myProcess.getId()).singleResult();
         Map<String, String> properties = Maps.newHashMap();
         properties.put("fkey1","fvalue1");
         properties.put("key2","value_2");
@@ -82,6 +82,12 @@ public class TestHistoryService {
         for (HistoricData historicDatum : historicData) {
             LOGGER.info("historicDatum = {}",historicDatum);
         }
+        historyService.deleteHistoricProcessInstance(myProcess.getId());
+        HistoricProcessInstance historicProcessInstance = historyService
+                .createHistoricProcessInstanceQuery()
+                .processInstanceId(myProcess.getId())
+                .singleResult();
+        LOGGER.info("historicProcessInstance = {}",historicProcessInstance);
 
     }
 
