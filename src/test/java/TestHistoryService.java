@@ -26,7 +26,7 @@ public class TestHistoryService {
     public ActivitiRule activitiRule = new ActivitiRule("activiti_history.cfg.xml");
 
     /**
-     * task获取变量，描述
+     * 历史变量获取，持久化
      */
     @Test
     @Deployment(resources = "MyProcess.bpmn20.xml")
@@ -49,28 +49,32 @@ public class TestHistoryService {
         properties.put("fkey1","fvalue1");
         properties.put("key2","value_2");
         activitiRule.getFormService().submitTaskFormData(task.getId(),properties);
+//        获取历史的流程实例
         List<HistoricProcessInstance> historicProcessInstances = historyService.createHistoricProcessInstanceQuery().listPage(0, 100);
         for (HistoricProcessInstance historicProcessInstance : historicProcessInstances) {
             LOGGER.info("historicProcessInstance = {}",historicProcessInstance);
         }
+//        获取历史节点实例
         List<HistoricActivityInstance> historicActivityInstances = historyService.createHistoricActivityInstanceQuery().listPage(0, 100);
         for (HistoricActivityInstance historicActivityInstance : historicActivityInstances) {
             LOGGER.info("historicActivityInstance = {}",historicActivityInstance);
         }
-
+//        获取历史Task
         List<HistoricTaskInstance> historicTaskInstances = historyService.createHistoricTaskInstanceQuery().listPage(0, 100);
         for (HistoricTaskInstance historicTaskInstance : historicTaskInstances) {
             LOGGER.info("historicTaskInstances = {}",historicTaskInstance);
         }
+//        获取历史变量（持久化）
         List<HistoricVariableInstance> historicVariableInstances = historyService.createHistoricVariableInstanceQuery().listPage(0, 100);
         for (HistoricVariableInstance historicVariableInstance : historicVariableInstances) {
             LOGGER.info("historicVariableInstance = {}",historicVariableInstance);
         }
+//        获取历史细节
         List<HistoricDetail> historicDetails = historyService.createHistoricDetailQuery().listPage(0, 100);
         for (HistoricDetail historicDetail : historicDetails) {
             LOGGER.info("historicDetail = {}",historicDetail);
         }
-
+//        获取历史日志，变量，表单，留言，任务，变量的变动
         ProcessInstanceHistoryLog processInstanceHistoryLog = historyService.createProcessInstanceHistoryLogQuery(myProcess.getId())
                 .includeVariables()
                 .includeFormProperties()
@@ -82,6 +86,7 @@ public class TestHistoryService {
         for (HistoricData historicDatum : historicData) {
             LOGGER.info("historicDatum = {}",historicDatum);
         }
+//        删除历史流程实例
         historyService.deleteHistoricProcessInstance(myProcess.getId());
         HistoricProcessInstance historicProcessInstance = historyService
                 .createHistoricProcessInstanceQuery()

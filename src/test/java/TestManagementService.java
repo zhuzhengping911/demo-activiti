@@ -31,7 +31,7 @@ public class TestManagementService {
     public ActivitiRule activitiRule = new ActivitiRule("activiti_job.cfg.xml");
 
     /**
-     * task获取变量，描述
+     * 获取定时任务
      */
     @Test
     @Deployment(resources = "MyProcess-job.bpmn20.xml")
@@ -49,6 +49,9 @@ public class TestManagementService {
 
     }
 
+    /**
+     * 获取数据库查询，表结构
+     */
     @Test
     @Deployment(resources = "MyProcess-job.bpmn20.xml")
     public void testTablePageQuery(){
@@ -66,6 +69,9 @@ public class TestManagementService {
 
     }
 
+    /**
+     * 自定义sql使用
+     */
     @Test
     @Deployment(resources = "MyProcess.bpmn20.xml")
     public void testCustomQuery(){
@@ -84,6 +90,9 @@ public class TestManagementService {
 
     }
 
+    /**
+     * 命令执行，自定义命令
+     */
     @Test
     @Deployment(resources = "MyProcess.bpmn20.xml")
     public void testCommand(){
