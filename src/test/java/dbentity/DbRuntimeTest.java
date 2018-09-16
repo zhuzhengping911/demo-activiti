@@ -1,6 +1,9 @@
 package dbentity;
 
 import com.google.common.collect.Maps;
+import org.activiti.engine.TaskService;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.activiti.engine.test.ActivitiRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,13 +30,22 @@ public class DbRuntimeTest {
                 .deploy();
         Map<String,Object> varibles = Maps.newHashMap();
         varibles.put("key1","value1");
-        activitiRule.getRuntimeService()
-                .startProcessInstanceByKey("secode_approve",varibles);
+        ProcessInstance secode_approve = activitiRule.getRuntimeService()
+                .startProcessInstanceByKey("secode_approve", varibles);
     }
 
     @Test
-    public void testSuspend(){
+    public void testSetOwner(){
+        TaskService taskService = activitiRule.getTaskService();
+        Task secode_approve = taskService.createTaskQuery().processDefinitionKey("secode_approve").singleResult();
+        taskService.setOwner(secode_approve.getId(),"user1");
+    }
 
+    @Test
+    public void testMessage(){
+        activitiRule.getRepositoryService().createDeployment()
+                .addClasspathResource("MyProcess_messageEvent.bpmn20.xml")
+                .deploy();
     }
 
 }
