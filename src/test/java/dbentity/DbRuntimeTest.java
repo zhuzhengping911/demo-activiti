@@ -48,4 +48,20 @@ public class DbRuntimeTest {
                 .deploy();
     }
 
+    @Test
+    public void testMessageReceived(){
+        activitiRule.getRepositoryService().createDeployment()
+                .addClasspathResource("MyProcess_message.bpmn20.xml")
+                .deploy();
+        ProcessInstance myProcess = activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess");
+    }
+
+    @Test
+    public void testJob() throws InterruptedException {
+        activitiRule.getRepositoryService().createDeployment()
+                .addClasspathResource("MyProcess-job.bpmn20.xml")
+                .deploy();
+        Thread.sleep(1000*30L);
+    }
+
 }
