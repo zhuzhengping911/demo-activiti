@@ -8,6 +8,8 @@
         <property name="dataSource" ref="dataSource"></property>
         <property name="dbHistoryUsed" value="true"></property>
         <property name="dbIdentityUsed" value="true"></property>
+        <property name="historyLevel" value="FULL"></property>
+        <property name="enableDatabaseEventLogging" value="true"></property>
     </bean>
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
