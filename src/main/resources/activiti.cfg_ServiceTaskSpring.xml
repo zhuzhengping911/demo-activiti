@@ -3,6 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
         <property name="url" value="jdbc:mysql://localhost:3306/ActivitiTest?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"></property>
@@ -31,6 +32,5 @@
     <bean id="activitiRule" class="org.activiti.engine.test.ActivitiRule">
         <property name="processEngine" ref="processEngine"></property>
     </bean>
-    <bean id="commandInvoker" class="com.zzp.activiti.demo.interceptor.MDCCommandINvoker">
-    </bean>
+    <bean class="com.zzp.activiti.demo.delegate.MyJavaDelegate" id="myJavaDelegate"></bean>
 </beans>
