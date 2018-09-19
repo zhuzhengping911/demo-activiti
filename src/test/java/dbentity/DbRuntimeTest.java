@@ -20,7 +20,7 @@ public class DbRuntimeTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(DbRuntimeTest.class);
 
     @Rule
-    public ActivitiRule activitiRule = new ActivitiRule("activiti-mysql.cfg.xml");
+    public ActivitiRule activitiRule = new ActivitiRule("activiti.cfg_mysql.xml");
 
     @Test
     public void testDbRuntimeTest(){

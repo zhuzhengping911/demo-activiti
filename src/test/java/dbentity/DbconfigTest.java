@@ -25,7 +25,7 @@ public class DbconfigTest {
     @Test
     public void testDbConfig(){
         ProcessEngine processEngine = ProcessEngineConfiguration
-                .createProcessEngineConfigurationFromResource("activiti-mysql.cfg.xml")
+                .createProcessEngineConfigurationFromResource("activiti.cfg_mysql.xml")
                 .buildProcessEngine();
         ManagementService managementService = processEngine.getManagementService();
         Map<String, Long> tableCount = managementService.getTableCount();
@@ -41,7 +41,7 @@ public class DbconfigTest {
     @Test
     public void dropTables(){
         ProcessEngine processEngine = ProcessEngineConfiguration
-                .createProcessEngineConfigurationFromResource("activiti-mysql.cfg.xml")
+                .createProcessEngineConfigurationFromResource("activiti.cfg_mysql.xml")
                 .buildProcessEngine();
         ManagementService managementService = processEngine.getManagementService();
         managementService.executeCommand(new Command<Object>() {
