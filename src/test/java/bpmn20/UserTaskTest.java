@@ -20,6 +20,11 @@ public class UserTaskTest {
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule();
 
+    /**
+     * 用户组和用户设定
+     * 候选人确认
+     * @throws InterruptedException
+     */
     @Test
     @Deployment(resources = {"MyProcess-userTask.bpmn20.xml"})
     public void testTimerEventTest() throws InterruptedException {
@@ -43,6 +48,11 @@ public class UserTaskTest {
 
     }
 
+    /**
+     *
+     * 监听器的create和complate的区别
+     * @throws InterruptedException
+     */
     @Test
     @Deployment(resources = {"MyProcess-userTask2.bpmn20.xml"})
     public void testTimerEventTest2() throws InterruptedException {
