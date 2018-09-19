@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1536495746400" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process id="myProcess" >
+    <startEvent id="startEvent" ></startEvent>
+    <sequenceFlow id="flow1"  sourceRef="startEvent" targetRef="someTask"></sequenceFlow>
+    <userTask id="someTask" name="User Task"
+              activiti:candidateGroups="group1"
+              activiti:candidateUsers="user1,user2">
+      <extensionElements>
+        <activiti:taskListener event="create" class="com.zzp.activiti.demo.event.MyTaskListener"/>
+        <activiti:taskListener event="complete" class="com.zzp.activiti.demo.event.MyTaskListener"/>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow2" sourceRef="someTask" targetRef="end"></sequenceFlow>
+    <endEvent id="end"></endEvent>
+  </process>
+</definitions>
