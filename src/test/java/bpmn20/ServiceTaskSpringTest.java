@@ -22,6 +22,7 @@ import java.util.Map;
 /**
  * Created by zhuzhengping
  * on 2018/9/17.
+ * 基于spring的配置信息
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:activiti.cfg_ServiceTaskSpring.xml")
@@ -32,6 +33,10 @@ public class ServiceTaskSpringTest {
     @Rule
     public ActivitiRule activitiRule;
 
+    /**
+     * 使用表达式获取Delegate
+     * @throws InterruptedException
+     */
     @Test
     @Deployment(resources = {"MyProcess-ServiceTask4.bpmn20.xml"})
     public void testServiceTaskDelegate() throws InterruptedException {
@@ -52,7 +57,10 @@ public class ServiceTaskSpringTest {
 
     }
 
-
+    /**
+     * 使用实体类的属性，方法
+     * @throws InterruptedException
+     */
     @Test
     @Deployment(resources = {"MyProcess-ServiceTask5.bpmn20.xml"})
     public void testServiceTaskDelegate5() throws InterruptedException {

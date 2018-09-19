@@ -29,6 +29,10 @@ public class ServiceTaskTest {
     @Rule
     public ActivitiRule activitiRule = new ActivitiRule();
 
+    /**
+     * 使用delegate
+     * @throws InterruptedException
+     */
     @Test
     @Deployment(resources = {"MyProcess-ServiceTask.bpmn20.xml"})
     public void testServiceTaskDelegate() throws InterruptedException {
@@ -44,6 +48,11 @@ public class ServiceTaskTest {
 
 
     }
+
+    /**
+     * 使用behavior
+     * @throws InterruptedException
+     */
     @Test
     @Deployment(resources = {"MyProcess-ServiceTask2.bpmn20.xml"})
     public void testServiceTaskBehaivor() throws InterruptedException {
@@ -82,6 +91,9 @@ public class ServiceTaskTest {
 
     }
 
+    /**
+     * 传入字符串或表达式获取的字符串常量
+     */
     @Test
     @Deployment(resources = {"MyProcess-ServiceTask3.bpmn20.xml"})
     public void testServiceTaskDelegate2()  {
