@@ -35,6 +35,9 @@ public class GatewayTest {
 
     }
 
+    /**
+     * 单一网管，根据条件只会走一条线，注意默认
+     */
     @Test
     @Deployment(resources = {"MyProcess-exclusiveGateway.bpmn20.xml"})
     public void testExclusiveGatewayTest2()  {
@@ -46,6 +49,10 @@ public class GatewayTest {
         LOGGER.info("task.name = {}",task.getName());
 
     }
+
+    /**
+     * 多路网管，多条线都会走，有end和start
+     */
     @Test
     @Deployment(resources = {"MyProcess-parelleGateway.bpmn20.xml"})
     public void testParallelGatewayTest()  {
@@ -61,5 +68,9 @@ public class GatewayTest {
         LOGGER.info("task.name = {}",task.getName());
 
     }
+    /**
+     * 还有包容性网管，可能两条线都执行，也可能只执行一条线，支持并发，合并（有end）
+     * 事件网关，根据捕获事件的结果执行一条线流程会暂停，事件订阅，铺货事件，单一执行
+     */
 
 }
