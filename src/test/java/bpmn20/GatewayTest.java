@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,6 +46,20 @@ public class GatewayTest {
         LOGGER.info("task.name = {}",task.getName());
 
     }
+    @Test
+    @Deployment(resources = {"MyProcess-parelleGateway.bpmn20.xml"})
+    public void testParallelGatewayTest()  {
 
+        ProcessInstance myProcess = activitiRule.getRuntimeService().startProcessInstanceByKey("myProcess");
+        List<Task> tasks = activitiRule.getTaskService().createTaskQuery().processInstanceId(myProcess.getId()).listPage(0, 100);
+        tasks.stream().forEach(x -> {
+            System.out.println(x.getName());
+            activitiRule.getTaskService().complete(x.getId());
+        });
+        LOGGER.info("tasks.size = {}",tasks.size());
+        Task task = activitiRule.getTaskService().createTaskQuery().singleResult();
+        LOGGER.info("task.name = {}",task.getName());
+
+    }
 
 }
