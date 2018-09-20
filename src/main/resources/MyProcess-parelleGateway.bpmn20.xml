@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1536495746400" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process id="myProcess" >
+    <startEvent id="start"/>
+    <parallelGateway id="parelleStart"/>
+    <userTask id="task1" name="确认收货"/>
+    <userTask id="task2" name="确认支付"/>
+    <parallelGateway id="parelleEnd"/>
+    <userTask id="task3" name="订单完成"/>
+    <endEvent id="end"/>
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="parelleStart"/>
+    <sequenceFlow sourceRef="parelleStart" targetRef="task1"/>
+    <sequenceFlow sourceRef="parelleStart" targetRef="task2"/>
+    <sequenceFlow sourceRef="task1" targetRef="parelleEnd"/>
+    <sequenceFlow sourceRef="task2" targetRef="parelleEnd"/>
+    <sequenceFlow sourceRef="parelleEnd" targetRef="task3"/>
+    <sequenceFlow sourceRef="task3" targetRef="end"/>
+  </process>
+</definitions>
