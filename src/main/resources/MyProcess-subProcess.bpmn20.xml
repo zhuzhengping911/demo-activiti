@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1536495746400" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process id="myProcess" >
+    <!--使用delegate实现-->
+    <startEvent id="startEvent" ></startEvent>
+      <subProcess id="subProcess">
+        <startEvent id="startSub"></startEvent>
+        <parallelGateway id="parellelStart"/>
+        <serviceTask id="pay" name="确认支付" activiti:class=""/>
+        <serviceTask id="task" name="确认收货" activiti:class=""/>
+        <parallelGateway id="parellelEnd"/>
+        <endEvent id="endSub"></endEvent>
+        <sequenceFlow sourceRef="startSub" targetRef="parellelStart"/>
+        <sequenceFlow sourceRef="parellelStart" targetRef="pay"/>
+        <sequenceFlow sourceRef="parellelStart" targetRef="task"/>
+        <sequenceFlow sourceRef="pay" targetRef="parellelEnd"/>
+        <sequenceFlow sourceRef="task" targetRef="parellelEnd"/>
+        <sequenceFlow sourceRef="parellelEnd" targetRef="endSub"/>
+      </subProcess>
+    <boundaryEvent id="boundary" attachedToRef="subProcess">
+      <errorEventDefinition errorRef="bpmnError"></errorEventDefinition>
+    </boundaryEvent>
+    <userTask id="orderComplete" name="订单完成"/>
+    <userTask id="orderError" name="异常处理"/>
+    <endEvent id="end"></endEvent>
+
+    <sequenceFlow sourceRef="startEvent" targetRef="subProcess"></sequenceFlow>
+    <sequenceFlow sourceRef="subProcess" targetRef="orderComplete"/>
+    <sequenceFlow sourceRef="boundary" targetRef="orderError"/>
+    <sequenceFlow sourceRef="orderComplete" targetRef="end"/>
+    <sequenceFlow sourceRef="orderError" targetRef="end"/>
+  </process>
+</definitions>
