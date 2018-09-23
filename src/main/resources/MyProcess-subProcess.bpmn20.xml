@@ -17,6 +17,7 @@
         <sequenceFlow sourceRef="task" targetRef="parellelEnd"/>
         <sequenceFlow sourceRef="parellelEnd" targetRef="endSub"/>
       </subProcess>
+
     <boundaryEvent id="boundary" attachedToRef="subProcess">
       <errorEventDefinition errorRef="bpmnError"></errorEventDefinition>
     </boundaryEvent>
