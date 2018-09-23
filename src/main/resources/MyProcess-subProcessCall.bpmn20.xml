@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1536495746400" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process id="myProcess-check-order" >
+    <!--使用delegate实现-->
+    <startEvent id="startEvent" ></startEvent>
+
+        <parallelGateway id="parellelStart"/>
+        <serviceTask id="pay" name="确认支付" activiti:class="com.zzp.activiti.demo.delegate.MyPayDelegate"/>
+        <serviceTask id="task" name="确认收货" activiti:class="com.zzp.activiti.demo.delegate.MytakeDelegate"/>
+        <parallelGateway id="parellelEnd"/>
+
+    <endEvent id="end"></endEvent>
+
+    <sequenceFlow sourceRef="startEvent" targetRef="parellelStart"></sequenceFlow>
+    <sequenceFlow sourceRef="parellelStart" targetRef="pay"/>
+    <sequenceFlow sourceRef="parellelStart" targetRef="task"/>
+    <sequenceFlow sourceRef="pay" targetRef="parellelEnd"/>
+    <sequenceFlow sourceRef="task" targetRef="parellelEnd"/>
+    <sequenceFlow sourceRef="parellelEnd" targetRef="end"/>
+    <!--<sequenceFlow sourceRef="orderComplete" targetRef="end"/>-->
+  </process>
+</definitions>

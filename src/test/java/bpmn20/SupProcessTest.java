@@ -67,4 +67,27 @@ public class SupProcessTest {
 
     }
 
+    /**
+     * 调用试子流程,入參出參需要显示的写在xml里
+     * @throws InterruptedException
+     */
+    @Test
+    @Deployment(resources = {"MyProcess-subProcessMain.bpmn20.xml"
+    ,"MyProcess-subProcessCall.bpmn20.xml"})
+    public void testSupProcessTest3() throws InterruptedException {
+
+        Map<String,Object> varibles = Maps.newHashMap();
+        varibles.put("errorFlag",true);
+        varibles.put("key0","value0");
+        ProcessInstance myProcess = activitiRule.getRuntimeService()
+                .startProcessInstanceByKey("myProcess",varibles);
+
+        TaskService taskService = activitiRule.getTaskService();
+        Task task = taskService.createTaskQuery().singleResult();
+        LOGGER.info("user1 task = {}",task);
+        Map<String, Object> variables = activitiRule.getRuntimeService().getVariables(myProcess.getId());
+        LOGGER.info("variables = {}",variables);
+
+    }
+
 }

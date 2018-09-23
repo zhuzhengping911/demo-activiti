@@ -18,8 +18,11 @@ public class MyPayDelegate implements JavaDelegate{
 
     @Override
     public void execute(DelegateExecution delegateExecution) {
+        loger.info("variables = {}",delegateExecution.getVariables());
         loger.info("支付开始{}",this);
         delegateExecution.getParent().setVariableLocal("key2","value2");
+        delegateExecution.setVariable("key1","value1");
+        delegateExecution.setVariable("key3","value3");
         Object errorFlag = delegateExecution.getVariable("errorFlag");
         if (Objects.equals(errorFlag,true)){
             loger.info("支付失败{}",this);
